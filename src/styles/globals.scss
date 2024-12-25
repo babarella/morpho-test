@@ -1,0 +1,32 @@
+@use './mixins' as cfg;
+@import 'normalize.css';
+
+html {
+  --ui-base-color-str: 67, 76, 83;
+  --ui-primary-color-str: 41, 115, 255;
+  --ui-content1-color-str: 25, 29, 32;
+  --ui-content2-color-str: 255, 255, 255;
+  
+  --ui-bg-color: #EBEDF5;
+  --ui-block-color: #ffffff;
+  --ui-primaryShadow-color: rgba(36, 112, 255, 0.4);
+  
+  --ui-app-x-offset: 40px;
+}
+
+body {
+  @include cfg.baseFont;
+  @include cfg.fontXS;  
+  background-color: var(--ui-bg-color);
+  color: rgba(var(--ui-base-color-str), 0.95);
+}
+
+a {
+  text-decoration: none;
+}
+
+.app-wrapper {
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: min-content auto;
+}

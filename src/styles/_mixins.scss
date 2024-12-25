@@ -1,0 +1,46 @@
+@mixin baseFont {
+  font-family: var(--font-inter);
+  font-weight: 400;
+  font-smooth: antialiased;
+}
+
+@mixin fontXXS {
+  font-size: 12px;
+  line-height: 19px;
+}
+
+@mixin fontXS {
+  font-size: 13px;
+  line-height: 20.8px;
+}
+
+@mixin fontS {
+  font-size: 15px;
+  line-height: 24px;
+}
+
+@mixin fontL {
+  font-size: 18px;
+  line-height: 29px;
+}
+
+@mixin flexRowCenter {
+  display: flex;
+  align-items: center;
+}
+
+@mixin flexCenterBetween {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin flexFullCenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin transition {
+  transition: 0.22s all;
+}

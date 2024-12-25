@@ -1,0 +1,6 @@
+@use '@/styles/mixins' as cfg;
+
+
+.icon {
+  @include cfg.flexFullCenter;
+}
