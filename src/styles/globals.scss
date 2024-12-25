@@ -12,6 +12,7 @@ html {
   --ui-primaryShadow-color: rgba(36, 112, 255, 0.4);
   
   --ui-app-x-offset: 40px;
+  --ui-app-y-offset: 40px;
 }
 
 body {
@@ -29,4 +30,10 @@ a {
   min-height: 100vh;
   display: grid;
   grid-template-rows: min-content auto;
+}
+
+.app-content {
+  padding: var(--ui-app-y-offset) var(--ui-app-x-offset);
+  display: flex;
+  flex-direction: column;
 }
