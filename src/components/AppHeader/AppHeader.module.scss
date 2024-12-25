@@ -1,0 +1,21 @@
+@use '@/styles/mixins' as cfg;
+
+.header {
+  @include cfg.flexCenterBetween;
+  padding: 0 var(--ui-app-x-offset);
+  height: 50px;
+  border-bottom: 1px solid rgba(var(--ui-base-color-str), 0.15);
+  box-sizing: border-box;
+}
+
+.logoLink {
+  @include cfg.transition;
+
+  &:hover {
+    opacity: 0.75;
+  }
+}
+
+.repoBtn {
+  gap: 8px;
+}

@@ -1,0 +1,20 @@
+@use '@/styles/mixins' as cfg;
+
+.wrapper {
+  @include cfg.flexRowCenter;
+  gap: 32px;
+  user-select: none;
+  color: rgba(var(--ui-content1-color-str), 0.95);
+}
+
+.logoContainer {
+  height: 24px;
+  width: 24px;
+  @include cfg.flexFullCenter;
+}
+
+.label {
+  line-height: 16px;
+  font-size: 13px;
+  font-weight: 400;
+}
