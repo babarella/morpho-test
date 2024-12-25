@@ -1,12 +1,12 @@
-"use client"
+'use client'
 
-import clsx from "clsx"
-import type * as CSS from "csstype"
-import React, { FC, MouseEvent, ReactNode, useCallback, useMemo, useRef } from "react"
+import clsx from 'clsx'
+import type * as CSS from 'csstype'
+import React, { FC, MouseEvent, ReactNode, useCallback, useMemo, useRef } from 'react'
 import styles from './UiButton.module.scss'
 
-import { UiButtonSize, UiButtonTheme, UiButtonVariant } from "./types"
-import { useRouter } from "next/navigation"
+import { UiButtonSize, UiButtonTheme, UiButtonVariant } from './types'
+import { useRouter } from 'next/navigation'
 
 export interface UiButtonProps {
   children: ReactNode
@@ -37,7 +37,7 @@ export const UiButton: FC<UiButtonProps> = ({
   stopPropagation = false,
   onClick = () => {},
 
-  href = "",
+  href = '',
   externalLink = false,
   navigateReplace = false,
 
@@ -46,52 +46,44 @@ export const UiButton: FC<UiButtonProps> = ({
   full = false,
   focusable = true,
 
-  variant = "base",
-  size = "base",
-  theme = "primary",
+  variant = 'base',
+  size = 'base',
+  theme = 'primary',
 
   loader,
-  className = "",
+  className = '',
   style = {},
 }) => {
   const button = useRef<HTMLDivElement>(null)
   const router = useRouter()
 
-  const buttonClassNames = useMemo(
-    () => {
-      function css(condition: boolean, field: string | undefined): string {
-        return condition ? field || '' : ''
-      }
+  const buttonClassNames = useMemo(() => {
+    function css(condition: boolean, field: string | undefined): string {
+      return condition ? field || '' : ''
+    }
 
-      const coreClass = `
+    const coreClass = `
         ${styles.button}
         ${css(disabled, styles['button-disabled'])}
         ${css(loading, styles['button-progress'])}
       `
 
-      const variantClass = `
+    const variantClass = `
         ${css(true, styles[`variant-${variant}`])}
       `
 
-      const sizeClass = `
+    const sizeClass = `
         ${css(true, styles[`size-${size}`])}
       `
 
-      const themeClass = `
+    const themeClass = `
         ${css(true, styles[`variant-${variant}-theme-${theme}`])}
         ${css(disabled, styles[`variant-${variant}-theme-${theme}-disabled`])}
         ${css(loading, styles[`variant-${variant}-theme-${theme}-progress`])}
       `
 
-      return [
-        coreClass.trim(),
-        variantClass.trim(),
-        sizeClass.trim(),
-        themeClass.trim(),
-      ]
-    },
-    [disabled, loading, variant, size, theme]
-  )
+    return [coreClass.trim(), variantClass.trim(), sizeClass.trim(), themeClass.trim()]
+  }, [disabled, loading, variant, size, theme])
 
   const isInteractive = useMemo(() => !disabled && !loading, [disabled, loading])
 
@@ -104,7 +96,7 @@ export const UiButton: FC<UiButtonProps> = ({
 
         button.current?.blur()
         if (href) {
-          if (externalLink) window.open(href, "_blank")
+          if (externalLink) window.open(href, '_blank')
           else {
             if (navigateReplace) router.replace(href)
             else router.push(href)
@@ -114,16 +106,16 @@ export const UiButton: FC<UiButtonProps> = ({
         onClick(e)
       }
     },
-    [isInteractive, stopPropagation, href, onClick, router, externalLink, navigateReplace]
+    [isInteractive, stopPropagation, href, onClick, router, externalLink, navigateReplace],
   )
 
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent) => {
       if (isInteractive) {
-        if (e.key === "Enter" || e.code === "Space") handleClick(e)
+        if (e.key === 'Enter' || e.code === 'Space') handleClick(e)
       }
     },
-    [isInteractive, handleClick]
+    [isInteractive, handleClick],
   )
 
   return (
@@ -132,11 +124,7 @@ export const UiButton: FC<UiButtonProps> = ({
       tabIndex={isInteractive && focusable ? 0 : -1}
       role="button"
       aria-disabled={!isInteractive}
-      className={clsx(
-        ...buttonClassNames,
-        full ? styles.full : "",
-        className
-      )}
+      className={clsx(...buttonClassNames, full ? styles.full : '', className)}
       style={style}
       onClick={handleClick}
       onKeyDown={handleKeyDown}

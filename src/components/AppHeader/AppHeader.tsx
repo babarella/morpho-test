@@ -1,8 +1,8 @@
 import { UiButton, UiIcon, UiLogo } from '@/components/ui'
 import styles from './AppHeader.module.scss'
 import { FC } from 'react'
-import clsx from "clsx"
-import type * as CSS from "csstype"
+import clsx from 'clsx'
+import type * as CSS from 'csstype'
 import Link from 'next/link'
 import { GITHUB_REPO_LINK } from '@/constants/app'
 
@@ -20,7 +20,14 @@ export const AppHeader: FC<AppHeaderProps> = ({ className = '', style = {} }) =>
         </Link>
       </div>
       <div>
-        <UiButton href={GITHUB_REPO_LINK} externalLink className={styles.repoBtn} variant="alternative" size="small" theme="neutral">
+        <UiButton
+          href={GITHUB_REPO_LINK}
+          externalLink
+          className={styles.repoBtn}
+          variant="alternative"
+          size="small"
+          theme="neutral"
+        >
           Go to Github Repo
           <UiIcon variant="externalResource" />
         </UiButton>

@@ -6,7 +6,8 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "format:write": "prettier --write --ignore-path .gitignore \"src/**/*.+(ts|tsx)\""
   },
   "dependencies": {
     "clsx": "^2.1.1",
@@ -24,6 +25,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.1.2",
+    "prettier": "^3.4.2",
     "sass": "^1.83.0",
     "typescript": "^5"
   }
