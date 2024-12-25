@@ -1,4 +1,3 @@
-import { UiButton } from "@/components/ui";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {

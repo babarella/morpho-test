@@ -90,7 +90,7 @@ export const UiButton: FC<UiButtonProps> = ({
         themeClass.trim(),
       ]
     },
-    [disabled, loading, variant]
+    [disabled, loading, variant, size, theme]
   )
 
   const isInteractive = useMemo(() => !disabled && !loading, [disabled, loading])
@@ -105,7 +105,10 @@ export const UiButton: FC<UiButtonProps> = ({
         button.current?.blur()
         if (href) {
           if (externalLink) window.open(href, "_blank")
-          else navigateReplace ? router.replace(href) : router.push(href)
+          else {
+            if (navigateReplace) router.replace(href)
+            else router.push(href)
+          }
         }
         // inherits browser's native MouseEvent
         onClick(e)
