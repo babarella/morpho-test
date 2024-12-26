@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "format:write": "prettier --write --ignore-path .gitignore \"src/**/*.+(ts|tsx)\""
+    "format:write": "prettier --write --ignore-path .gitignore \"src/**/*.+(ts|tsx)\"",
+    "precommit": "npm run format:write && npm run lint && git add .",
+    "prepare": "husky"
   },
   "dependencies": {
     "clsx": "^2.1.1",
@@ -25,6 +27,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.1.2",
+    "husky": "^9.1.7",
     "prettier": "^3.4.2",
     "sass": "^1.83.0",
     "typescript": "^5"
