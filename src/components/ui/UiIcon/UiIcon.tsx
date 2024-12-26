@@ -3,7 +3,7 @@ import clsx from 'clsx'
 import type * as CSS from 'csstype'
 import styles from './UiIcon.module.scss'
 
-export type UiIconVariant = 'externalResource' | 'x' | 'circleCheck' | 'loader'
+export type UiIconVariant = 'externalResource' | 'x' | 'circleCheck' | 'loader' | 'arrowRight'
 
 export interface UiIconProps {
   variant: UiIconVariant
@@ -76,11 +76,33 @@ const Loader: FC<Pick<UiIconProps, 'size'>> = ({ size }) => {
   )
 }
 
+const ArrowRight: FC<Pick<UiIconProps, 'size'>> = ({ size }) => {
+  return (
+    <svg width={size} height={size} viewBox="0 0 10 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M9.33337 5.49972L0.666707 5.49972"
+        stroke="currentColor"
+        strokeWidth="1.25"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M5.00004 1.16638L9.33337 5.49972L5.00004 9.83305"
+        stroke="currentColor"
+        strokeWidth="1.25"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  )
+}
+
 const IconsMap: Record<UiIconVariant, FC<any>> = {
   externalResource: ExternalIcon,
   x: XIcon,
   circleCheck: CircleCheck,
   loader: Loader,
+  arrowRight: ArrowRight,
 }
 
 export const UiIcon: FC<UiIconProps> = ({ variant, blockSize, size = 8, className = '', style = {} }) => {

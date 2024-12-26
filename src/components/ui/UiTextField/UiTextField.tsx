@@ -3,29 +3,29 @@
 import React, { FC, ReactNode, Ref, useMemo, useState } from 'react'
 import clsx from 'clsx'
 import type * as CSS from 'csstype'
-import styles from './UiTextInput.module.scss'
+import styles from './UiTextField.module.scss'
 import { UiIcon } from '../UiIcon'
 
-export type UiTextInputVariant = 'base'
-export type UiTextInputSize = 'base'
-export type UiTextInputTheme = 'base'
-export type UiTextInputStatus = 'error' | 'success'
+export type UiTextFieldVariant = 'base'
+export type UiTextFieldSize = 'base'
+export type UiTextFieldTheme = 'base'
+export type UiTextFieldStatus = 'error' | 'success'
 
-export interface UiTextInputProps {
+export interface UiTextFieldProps {
   onChange: (val: string) => void
   value?: string
   inputRef?: Ref<any>
 
-  variant?: UiTextInputVariant
-  size?: UiTextInputSize
-  theme?: UiTextInputTheme
+  variant?: UiTextFieldVariant
+  size?: UiTextFieldSize
+  theme?: UiTextFieldTheme
 
   type?: 'text' | 'password' | 'number'
   placeholder?: string
 
   disabled?: boolean
   loading?: boolean
-  status?: UiTextInputStatus
+  status?: UiTextFieldStatus
 
   minWidth?: string
   maxWidth?: string
@@ -42,7 +42,7 @@ export interface UiTextInputProps {
   style?: CSS.Properties
 }
 
-export const UiTextInput: FC<UiTextInputProps> = ({
+export const UiTextField: FC<UiTextFieldProps> = ({
   onChange,
   value,
   inputRef,

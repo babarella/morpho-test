@@ -24,6 +24,12 @@
   line-height: 29px;
 }
 
+@mixin caption {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+}
+
 @mixin flexRowCenter {
   display: flex;
   align-items: center;

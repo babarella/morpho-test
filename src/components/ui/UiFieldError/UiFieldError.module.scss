@@ -1,0 +1,27 @@
+@use '@/styles/mixins' as cfg;
+
+.errorMessage {
+  @include cfg.caption;
+  color: rgba(var(--ui-base-error-str), 0.95);
+  transition: 0.2s opacity ease-in-out;
+}
+
+.offset {
+  margin-top: 8px;
+}
+
+.left {
+  text-align: left;
+}
+
+.center {
+  text-align: center;
+}
+
+.right {
+  text-align: right;
+}
+
+.hidden {
+  opacity: 0;
+}
