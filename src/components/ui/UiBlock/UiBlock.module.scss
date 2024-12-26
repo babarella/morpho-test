@@ -1,0 +1,8 @@
+.block {
+  background-color: var(--ui-block-color);
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: var(--ui-block-shadow);
+  box-sizing: border-box;
+  border: 1px solid rgba(var(--ui-base-color-str), 0.15);
+}

@@ -1,0 +1,11 @@
+.label {
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 500;
+  color: rgba(var(--ui-base-color-str), 0.7);
+  display: block;
+
+  &-vertical {
+    margin-bottom: 8px;
+  }
+}
