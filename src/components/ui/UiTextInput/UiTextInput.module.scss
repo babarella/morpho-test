@@ -1,0 +1,111 @@
+@use '@/styles/mixins' as cfg;
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.input {
+  [type="number"]::-webkit-outer-spin-button, &[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  &[type="number"] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+  }
+
+  &::placeholder {
+    user-select: none;
+  }
+}
+
+.base {
+  border-radius: 6px;
+  transition: 0.3s all ease-in-out;
+  border: 1px solid transparent;
+
+  &-error {
+    border-color: rgba(var(--ui-base-error-str), 0.65) !important;
+  }
+
+  &-success {
+    border-color: rgba(var(--ui-base-success-str), 1) !important;
+  }
+
+  &-disabled {
+    pointer-events: none;
+  }
+
+  &-input {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    width: 100%;
+    font-weight: 400;
+    color: rgba(var(--ui-base-color-str), 0.95);
+
+    &-error {
+      color: rgba(var(--ui-base-error-str), 0.95);
+
+      &::placeholder {
+        color: rgba(var(--ui-base-error-str), 0.95);
+      }
+    }
+
+    &-theme-base {
+      &::placeholder {
+        color: rgba(var(--ui-base-color-str), 0.4);
+        opacity: 1;
+      }
+    }
+
+    &-size-base {
+      font-size: 13px;
+      line-height: 20px;
+    }
+  }
+  
+  &-size-base {
+    height: 36px;
+    padding: 0px 10px;
+  }
+
+  &-theme-base {
+    background-color: rgba(var(--ui-content1-color-str), 0.03);
+
+    &:hover, &-focus {
+      background-color: rgba(var(--ui-content1-color-str), 0.1);
+    }
+
+    &-focus {
+      border: 1px solid var(--ui-focused-input-border-color);
+    }
+  }
+}
+
+.statusSign {
+  @include cfg.flexFullCenter;
+  width: 20px;
+  min-width: 20px;
+  text-align: center;
+  transition: 0.2s opacity ease-in-out;
+
+  &-hidden {
+    opacity: 0;
+  }
+
+  &-error {
+    color: rgba(var(--ui-base-error-str), 1);
+  }
+
+  &-success {
+    color: rgba(var(--ui-base-success-str), 1);
+  }
+
+  &-loading {
+    color: rgba(var(--ui-base-yellow-str), 0.5);
+  }
+}

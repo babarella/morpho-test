@@ -5,8 +5,11 @@ import type * as CSS from 'csstype'
 import React, { FC, MouseEvent, ReactNode, useCallback, useMemo, useRef } from 'react'
 import styles from './UiButton.module.scss'
 
-import { UiButtonSize, UiButtonTheme, UiButtonVariant } from './types'
 import { useRouter } from 'next/navigation'
+
+export type UiButtonVariant = 'base' | 'alternative'
+export type UiButtonSize = 'base' | 'large' | 'small'
+export type UiButtonTheme = 'primary' | 'neutral'
 
 export interface UiButtonProps {
   children: ReactNode
