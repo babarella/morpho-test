@@ -1,0 +1,53 @@
+@use '@/styles/mixins' as cfg;
+
+.dropdownItem {
+  @include cfg.flexCenterBetween;
+  height: 29px;
+  box-sizing: border-box;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 8px;
+  padding-right: 4.5px;
+  border-radius: 8px;
+  display: flex;
+  user-select: none;
+
+  &:focus {
+    background-color: var(--ui-dropdown-focused-bg-color);
+    outline: none;
+    cursor: pointer;
+  }
+}
+
+.itemPresentation {
+  @include cfg.flexRowCenter;
+  gap: 4px;
+}
+
+.icon {
+  @include cfg.flexFullCenter;
+  width: 20px;
+  height: 20px;
+}
+
+.name {
+  @include cfg.fontXS;
+}
+
+.iconFallback {
+  width: 16px;
+  height: 16px;
+  background: linear-gradient(270deg, #2470FF 0.01%, #5792FF 100%);
+  border-radius: 100%;
+}
+
+.arrowIcon {
+  color: rgba(var(--ui-base-color-str), 0.9);
+}
+
+.empty {
+  @include cfg.fontXS;
+  user-select: none;
+  padding: 4px 0;
+  text-align: center;
+}

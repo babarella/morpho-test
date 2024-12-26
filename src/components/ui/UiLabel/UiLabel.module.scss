@@ -1,7 +1,7 @@
+@use '@/styles/mixins' as cfg;
+
 .label {
-  font-size: 12px;
-  line-height: 16px;
-  font-weight: 500;
+  @include cfg.caption;
   color: rgba(var(--ui-base-color-str), 0.7);
   display: block;
 
