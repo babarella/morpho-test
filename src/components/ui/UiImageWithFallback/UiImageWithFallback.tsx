@@ -1,5 +1,7 @@
 'use client'
 
+/* eslint-disable jsx-a11y/alt-text */
+
 import { FC, ReactNode, useState } from 'react'
 import Image from 'next/image'
 
