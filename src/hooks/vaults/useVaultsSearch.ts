@@ -67,8 +67,11 @@ export function useVaultsSearch() {
       let response: VaultSearchItem[] = []
 
       const isAddressSearch = isSearchByAddress(searchQuery)
-      if (isAddressSearch) response = await fetchSearchByAddress()
-      else response = await fetchSearchByName()
+      /**
+       * @todo Potential improvement: pick better library to enable client-side caching
+       * */
+      if (isAddressSearch) response = await fetchSearchByAddress({ address: searchQuery })
+      else response = await fetchSearchByName({ name: searchQuery })
 
       if (isRaceConditionDetected()) return
 
@@ -82,6 +85,7 @@ export function useVaultsSearch() {
       setSearchResult(response)
     } catch (e) {
       if (isRaceConditionDetected()) return
+      console.error(e)
       setError({
         type: VaultsSearchErrorType.UnexpectedError,
         message: ERROR_MESSAGES.unexpected,

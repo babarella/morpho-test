@@ -21,14 +21,16 @@ export const VaultsDiscovery: FC<VaultsDiscoveryProps> = ({ className = '', styl
   const inputRef = useRef<any>(null)
   const firstDropdownItemRef = useRef<any>(null)
   const inputContainerRef = useRef<any>(null)
+  const [isFocused, setIsFocused] = useState(false)
 
   // Doing this hack because of radix auto-focus on dropdown 1st item
   useClickAway(inputContainerRef, () => {
     setIsAlwaysFocused(false)
     inputRef?.current?.blur()
+    setIsFocused(false)
   })
 
-  const isDropdownOpen = !!searchResult.length || (!!userInput.length && isFirstLoadDone)
+  const isDropdownOpen = (!!searchResult.length || (!!userInput.length && isFirstLoadDone)) && isFocused
 
   const searchStatus = searchResult.length ? 'success' : error ? 'error' : undefined
   const isErrorHighlighted =
@@ -36,10 +38,19 @@ export const VaultsDiscovery: FC<VaultsDiscoveryProps> = ({ className = '', styl
 
   // Make sure user can navigate to dropdown with arrowDown via keyboard
   function handleInputKeyDown(e: React.KeyboardEvent) {
+    if (e.key === 'Escape') {
+      setIsFocused(false)
+      e.stopPropagation()
+    } else setIsFocused(true)
+
     if (e.key !== 'ArrowDown' || !isDropdownOpen) return
     e.preventDefault()
     setIsAlwaysFocused(false)
     firstDropdownItemRef?.current?.focus()
+  }
+
+  function handleDropdownKeydown(e: React.KeyboardEvent) {
+    if (e.key === 'Escape') inputRef?.current?.focus()
   }
 
   return (
@@ -58,7 +69,10 @@ export const VaultsDiscovery: FC<VaultsDiscoveryProps> = ({ className = '', styl
           id="search"
           inputRef={inputRef}
           alwaysFocused={isAlwaysFocused}
-          onFocus={() => setIsAlwaysFocused(true)}
+          onFocus={() => {
+            setIsAlwaysFocused(true)
+            setIsFocused(true)
+          }}
           value={userInput}
           onChange={handleUserInputChange}
           placeholder="Enter Vault Address or Name..."
@@ -74,9 +88,11 @@ export const VaultsDiscovery: FC<VaultsDiscoveryProps> = ({ className = '', styl
         items={searchResult}
         firstItemRef={firstDropdownItemRef}
         width="310px"
+        height="200px"
         loopNavigation
         modal={false}
         sideOffset={searchStatus === 'error' ? 10 : 0}
+        onKeyDown={handleDropdownKeydown}
       />
     </UiBlock>
   )
