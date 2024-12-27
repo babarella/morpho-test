@@ -30,28 +30,22 @@ export type UiImageWithFallbackProps = Omit<
   lazyRoot?: string
 } & React.RefAttributes<HTMLImageElement | null> & {
     fallback: ReactNode
-    displayFallbackOnLoading?: boolean
   }
 
-export const UiImageWithFallback: FC<UiImageWithFallbackProps> = ({
-  fallback,
-  displayFallbackOnLoading = false,
-  ...nextImageProps
-}) => {
+export const UiImageWithFallback: FC<UiImageWithFallbackProps> = ({ src, fallback, ...nextImageProps }) => {
   const [isFailed, setIsFailed] = useState(false)
-  const [isLoading, setIsLoading] = useState(true)
 
-  if (isFailed || (displayFallbackOnLoading && isLoading)) return fallback
+  if (!src || isFailed) return fallback
 
   return (
     <Image
       {...nextImageProps}
-      onLoadingComplete={(result) => {
-        if (result.naturalWidth === 0) {
+      src={src}
+      onLoad={(result: any) => {
+        if (result.target.naturalWidth === 0) {
           // Broken image
           setIsFailed(true)
         }
-        setIsLoading(true)
       }}
       onError={() => {
         setIsFailed(true)

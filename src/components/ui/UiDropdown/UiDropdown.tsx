@@ -19,6 +19,9 @@ export interface UiDropdownProps {
   sideOffset?: number
   align?: 'start' | 'center' | 'end'
   alignOffset?: number
+  avoidCollisions?: boolean
+
+  onKeyDown?: (e: React.KeyboardEvent) => void
 
   triggerContent?: ReactNode
   triggerClassName?: string
@@ -56,6 +59,9 @@ export const UiDropdown: UiDropdownComponent = ({
   sideOffset = 0,
   align = 'center',
   alignOffset = 0,
+  avoidCollisions = true,
+
+  onKeyDown = () => {},
 
   triggerContent,
   triggerClassName = '',
@@ -80,6 +86,8 @@ export const UiDropdown: UiDropdownComponent = ({
           sideOffset={sideOffset}
           align={align}
           alignOffset={alignOffset}
+          avoidCollisions={avoidCollisions}
+          onKeyDown={onKeyDown}
         >
           {children}
         </DropdownMenu.Content>

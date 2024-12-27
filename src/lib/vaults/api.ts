@@ -1,55 +1,65 @@
-export async function mockDelay<T>(delay = 2000, response?: T): Promise<T> {
-  return new Promise((resolve) => {
-    setTimeout(() => resolve(response as T), delay)
+import { SEARCH_VAULTS } from './gql'
+import { request } from 'graphql-request'
+import { VaultSearchRequestReturn, VaultsResponse, VaultSearchItem } from './types'
+import { convertToVaultSearchItem } from './converters'
+import { API_GRAPHQL_ENDPOINT } from './constants'
+
+export interface FetchSearchByNameOptions {
+  name: string
+  first?: number
+  whitelisted?: boolean
+}
+
+export async function fetchSearchByName({
+  name,
+  first = 10,
+  whitelisted = true,
+}: FetchSearchByNameOptions): Promise<VaultSearchItem[]> {
+  const response = await request<VaultsResponse<VaultSearchRequestReturn>>({
+    url: API_GRAPHQL_ENDPOINT,
+    document: SEARCH_VAULTS,
+    variables: {
+      first: first,
+      where: {
+        whitelisted,
+        search: name,
+      },
+    },
   })
+
+  if (!response?.vaults?.items || !Array.isArray(response.vaults.items)) return []
+
+  const result = response.vaults.items.map((vault) => convertToVaultSearchItem({ vault }))
+
+  return result
 }
 
-export async function fetchSearchByName() {
-  await mockDelay(3000)
-  function getRandomInt(max: number) {
-    return Math.floor(Math.random() * max)
-  }
-
-  return [
-    {
-      address: '1',
-      chainId: 1,
-      image: '',
-      name: `Vault ${getRandomInt(100000000000)}`,
-    },
-    {
-      address: '2',
-      chainId: 1,
-      image: '',
-      name: 'Vault 2',
-    },
-  ]
+export interface FetchSearchByAddressOptions {
+  address: string
+  first?: number
+  whitelisted?: boolean
 }
 
-export async function fetchSearchByAddress() {
-  await mockDelay(3000)
-  function getRandomInt(max: number) {
-    return Math.floor(Math.random() * max)
-  }
+export async function fetchSearchByAddress({
+  address,
+  first = 10,
+  whitelisted = true,
+}: FetchSearchByAddressOptions): Promise<VaultSearchItem[]> {
+  const response = await request<VaultsResponse<VaultSearchRequestReturn>>({
+    url: API_GRAPHQL_ENDPOINT,
+    document: SEARCH_VAULTS,
+    variables: {
+      first: first,
+      where: {
+        whitelisted,
+        address_in: [address],
+      },
+    },
+  })
 
-  return [
-    {
-      address: '1',
-      chainId: 1,
-      image: '',
-      name: `Vault ${getRandomInt(100000000000)}`,
-    },
-    {
-      address: '3',
-      chainId: 1,
-      image: '',
-      name: `Vault ${getRandomInt(100000000000)}`,
-    },
-    {
-      address: '2',
-      chainId: 1,
-      image: '',
-      name: 'Vault 2',
-    },
-  ]
+  if (!response?.vaults?.items || !Array.isArray(response.vaults.items)) return []
+
+  const result = response.vaults.items.map((vault) => convertToVaultSearchItem({ vault }))
+
+  return result
 }
