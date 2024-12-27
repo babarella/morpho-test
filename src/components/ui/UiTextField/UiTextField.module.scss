@@ -47,7 +47,7 @@
     font-weight: 400;
     color: rgba(var(--ui-base-color-str), 0.95);
 
-    &-error {
+    &-error-highlighted {
       color: rgba(var(--ui-base-error-str), 0.95);
 
       &::placeholder {

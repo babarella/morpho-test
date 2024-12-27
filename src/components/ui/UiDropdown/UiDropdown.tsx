@@ -28,6 +28,7 @@ export interface UiDropdownProps {
 }
 
 export interface UiDropdownItemProps {
+  itemRef?: any
   children?: ReactNode
   asChild?: boolean
   disabled?: boolean
@@ -88,6 +89,7 @@ export const UiDropdown: UiDropdownComponent = ({
 }
 
 const UiDropdownItem: FC<UiDropdownItemProps> = ({
+  itemRef,
   children,
   asChild = false,
   disabled,
@@ -98,6 +100,7 @@ const UiDropdownItem: FC<UiDropdownItemProps> = ({
 }) => {
   return (
     <DropdownMenu.Item
+      ref={itemRef}
       asChild={asChild}
       disabled={disabled}
       onSelect={onSelect}
