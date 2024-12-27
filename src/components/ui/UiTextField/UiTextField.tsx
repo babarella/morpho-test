@@ -1,6 +1,6 @@
 'use client'
 
-import React, { FC, ReactNode, Ref, useMemo, useState } from 'react'
+import React, { FC, ReactNode, useEffect, useMemo, useState } from 'react'
 import clsx from 'clsx'
 import type * as CSS from 'csstype'
 import styles from './UiTextField.module.scss'
@@ -12,9 +12,9 @@ export type UiTextFieldTheme = 'base'
 export type UiTextFieldStatus = 'error' | 'success'
 
 export interface UiTextFieldProps {
-  onChange: (val: string) => void
+  onChange: (val: string, e: React.ChangeEvent) => void
   value?: string
-  inputRef?: Ref<any>
+  inputRef?: any
 
   variant?: UiTextFieldVariant
   size?: UiTextFieldSize
@@ -26,6 +26,9 @@ export interface UiTextFieldProps {
   disabled?: boolean
   loading?: boolean
   status?: UiTextFieldStatus
+  errorHighlighted?: boolean
+  alwaysFocused?: boolean
+  autoFocus?: boolean
 
   minWidth?: string
   maxWidth?: string
@@ -36,6 +39,7 @@ export interface UiTextFieldProps {
 
   onFocus?: (e: React.FocusEvent) => void
   onBlur?: () => void
+  onKeyDown?: (e: React.KeyboardEvent) => void
 
   id?: string
   className?: string
@@ -57,6 +61,9 @@ export const UiTextField: FC<UiTextFieldProps> = ({
   disabled = false,
   loading = false,
   status,
+  errorHighlighted = false,
+  alwaysFocused = false,
+  autoFocus = false,
 
   minWidth = 'auto',
   maxWidth = '100%',
@@ -67,12 +74,19 @@ export const UiTextField: FC<UiTextFieldProps> = ({
 
   onFocus = () => {},
   onBlur = () => {},
+  onKeyDown = () => {},
 
   id,
   className = '',
   style = {},
 }) => {
   const [isFocused, setIsFocused] = useState(false)
+
+  useEffect(() => {
+    if (!isFocused && alwaysFocused) {
+      inputRef?.current?.focus()
+    }
+  }, [isFocused, alwaysFocused])
 
   const isStatusApplied = !loading && !!status
   const isStatusSignVisible = loading || !!status
@@ -115,6 +129,7 @@ export const UiTextField: FC<UiTextFieldProps> = ({
 
     const statusInput = `
       ${css(isStatusApplied, styles[`${variant}-input-${status}`])}
+      ${css(errorHighlighted && status === 'error', styles[`${variant}-input-error-highlighted`])}
     `
 
     const statusSign = `
@@ -128,7 +143,18 @@ export const UiTextField: FC<UiTextFieldProps> = ({
       input: [variantInput.trim(), sizeInput.trim(), themeInput.trim(), statusInput.trim()],
       statusSign: statusSign.trim(),
     }
-  }, [isFocused, disabled, variant, size, theme, isStatusApplied, status, isStatusSignVisible, loading])
+  }, [
+    isFocused,
+    disabled,
+    variant,
+    size,
+    theme,
+    isStatusApplied,
+    status,
+    isStatusSignVisible,
+    loading,
+    errorHighlighted,
+  ])
 
   function preventInputScroll(e: any) {
     e.target.addEventListener(
@@ -167,10 +193,12 @@ export const UiTextField: FC<UiTextFieldProps> = ({
         type={type}
         disabled={disabled}
         placeholder={placeholder}
+        autoFocus={autoFocus}
         className={clsx(styles.input, ...classes.input)}
-        onChange={(e) => onChange(e.currentTarget.value)}
+        onChange={(e) => onChange(e.currentTarget.value, e)}
         onFocus={handleFocus}
         onBlur={handleBlur}
+        onKeyDown={onKeyDown}
       />
 
       {rightPrefix}

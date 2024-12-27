@@ -8,10 +8,12 @@ import styles from './VaultsDropdown.module.scss'
 export type VaultsDropdownProps = Pick<UiBlockProps, 'width' | 'minWidth' | 'maxWidth' | 'minHeight' | 'maxHeight'> &
   Omit<UiDropdownProps, 'triggerClassName' | 'triggerStyle' | 'children'> & {
     items: VaultSearchItem[]
+    firstItemRef?: any
   }
 
 export const VaultsDropdown: FC<VaultsDropdownProps> = ({
   items,
+  firstItemRef,
 
   width,
   minWidth,
@@ -36,8 +38,9 @@ export const VaultsDropdown: FC<VaultsDropdownProps> = ({
       >
         {items.length ? (
           <>
-            {items.map((vaultItem) => (
+            {items.map((vaultItem, vaultItemIdx) => (
               <UiDropdown.Item
+                itemRef={vaultItemIdx === 0 ? firstItemRef : undefined}
                 key={`vault_${vaultItem.address}`}
                 textValue={vaultItem.address}
                 className={styles.dropdownItem}

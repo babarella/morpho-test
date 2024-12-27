@@ -12,7 +12,7 @@
   display: flex;
   user-select: none;
 
-  &:focus {
+  &:focus, &:hover {
     background-color: var(--ui-dropdown-focused-bg-color);
     outline: none;
     cursor: pointer;
