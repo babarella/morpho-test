@@ -1,7 +1,14 @@
-import { SEARCH_VAULTS } from './gql'
+import { SEARCH_VAULTS, VAULT } from './gql'
 import { request } from 'graphql-request'
-import { VaultSearchRequestReturn, VaultsResponse, VaultSearchItem } from './types'
-import { convertToVaultSearchItem } from './converters'
+import {
+  VaultSearchRequestReturn,
+  SearchVaultsResponse,
+  VaultSearchItem,
+  VaultRequestReturn,
+  Vault,
+  VaultResponse,
+} from './types'
+import { convertToVaultSearchItem, convertToVault } from './converters'
 import { API_GRAPHQL_ENDPOINT } from './constants'
 
 export interface FetchSearchByNameOptions {
@@ -15,7 +22,7 @@ export async function fetchSearchByName({
   first = 10,
   whitelisted = true,
 }: FetchSearchByNameOptions): Promise<VaultSearchItem[]> {
-  const response = await request<VaultsResponse<VaultSearchRequestReturn>>({
+  const response = await request<SearchVaultsResponse<VaultSearchRequestReturn>>({
     url: API_GRAPHQL_ENDPOINT,
     document: SEARCH_VAULTS,
     variables: {
@@ -45,7 +52,7 @@ export async function fetchSearchByAddress({
   first = 10,
   whitelisted = true,
 }: FetchSearchByAddressOptions): Promise<VaultSearchItem[]> {
-  const response = await request<VaultsResponse<VaultSearchRequestReturn>>({
+  const response = await request<SearchVaultsResponse<VaultSearchRequestReturn>>({
     url: API_GRAPHQL_ENDPOINT,
     document: SEARCH_VAULTS,
     variables: {
@@ -62,4 +69,24 @@ export async function fetchSearchByAddress({
   const result = response.vaults.items.map((vault) => convertToVaultSearchItem({ vault }))
 
   return result
+}
+
+export interface FetchVaultOptions {
+  address: string
+  chainId: number
+}
+
+export async function fetchVault({ address, chainId }: FetchVaultOptions): Promise<Vault | null> {
+  const response = await request<VaultResponse<VaultRequestReturn>>({
+    url: API_GRAPHQL_ENDPOINT,
+    document: VAULT,
+    variables: {
+      address,
+      chainId,
+    },
+  })
+
+  if (!response?.vaultByAddress) return null
+
+  return convertToVault({ vault: response.vaultByAddress, address, chainId })
 }

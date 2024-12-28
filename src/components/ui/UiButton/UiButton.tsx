@@ -30,6 +30,7 @@ export interface UiButtonProps {
   theme?: UiButtonTheme
 
   loader?: ReactNode
+  omitLoader?: boolean
 
   className?: string
   style?: CSS.Properties
@@ -54,6 +55,7 @@ export const UiButton: FC<UiButtonProps> = ({
   theme = 'primary',
 
   loader,
+  omitLoader = false,
   className = '',
   style = {},
 }) => {
@@ -132,7 +134,7 @@ export const UiButton: FC<UiButtonProps> = ({
       onClick={handleClick}
       onKeyDown={handleKeyDown}
     >
-      {loading ? loader || <div>Processing...</div> : children}
+      {loading && !omitLoader ? loader || <div>Processing...</div> : children}
     </div>
   )
 }

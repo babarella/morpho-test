@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { ThemeProvider } from 'next-themes'
 import { Inter } from 'next/font/google'
 import '@/styles/globals.scss'
+import 'react-loading-skeleton/dist/skeleton.css'
 import { AppHeader } from '@/components'
 
 const inter = Inter({
