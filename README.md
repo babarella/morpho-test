@@ -1,36 +1,26 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## Technical assignment for Morpho Labs - Quicks docs
 
-## Getting Started
+Hosted on Vercel: https://morpho-test-beta.vercel.app/
 
-First, run the development server:
+### Installation
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+1. Clone repo
+2. `npm i`
+3. `npm run dev`
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Folder structure
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Pretty standard folder structure with clear separation of concerns, you shouldn't be too confused navigating. So I will describe only special parts.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- src/components/ui - home for UI components which have potential to belong to UI kit and with time being separated into their own package
+- src/lib - folder for pure logic, main rule - structure it by domain
+- src/components - structure by domain, the rule for creation component: folder and .tsx file with same name paired with index.ts to export for elegan access nad funneling in case achitecure of component gets more complex. Not applicable to components which are supposed to be implementation details of main component.
 
-## Learn More
+### General notices
+- Was not setting up too strict and clear static analysis, so just basic linting, prettier and husky on top, could definitely be improved
 
-To learn more about Next.js, take a look at the following resources:
+### What is possible to be improved?
+- Better selection of graphql query library to support client-side caching (could boost search results output)
+- I had to care about a bunch of details to make this app prod-ready to my taste, so I was a bit in hurry, so I think better architecture and development is possible for `useVaultsSearch` hook to tackle race conditions in a more elegant way.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Overall that's it. I gave it a lot of attention and time, I believe it's a masterpiece. Hope you enjoy inspecting it.
