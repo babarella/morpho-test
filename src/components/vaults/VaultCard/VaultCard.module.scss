@@ -1,0 +1,135 @@
+@use '@/styles/mixins' as cfg;
+
+.card {
+  min-width: 362px;
+  min-height: 435px;
+  box-shadow: none;
+}
+
+.vault {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.iconContainer {
+  @include cfg.flexFullCenter;
+  width: 80px;
+  height: 80px;
+  user-select: none;
+}
+
+.iconFallback {
+  width: 66px;
+  height: 66px;
+  background: linear-gradient(270deg, #2470FF 0.01%, #5792FF 100%);
+  border-radius: 100%;
+}
+
+.presentation {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.vaultName {
+  @include cfg.fontL;
+  font-weight: 500;
+  color: var(--ui-text-primary-color);
+}
+
+.vaultCurator {
+  @include cfg.fontS;
+  font-weight: 400;
+  color: var(--ui-text-secondary-color);
+}
+
+.separatorWrapper {
+  height: 17px;
+  width: 100%;
+  margin: 12px 0;
+  display: flex;
+  align-items: center;
+}
+
+.separator {
+  background-color: rgba(var(--ui-base-color-str), 0.15);
+  width: 100%;
+  height: 1px;
+}
+
+.statsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.statItem {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.statTitle {
+  @include cfg.fontL;
+  font-weight: 400;
+  color: var(--ui-text-primary-color);
+}
+
+.statValue {
+  @include cfg.fontS;
+  font-weight: 400;
+  color: rgba(var(--ui-base-color-str), 0.95);
+}
+
+.capitalize {
+  text-transform: uppercase;
+}
+
+.addressLink {
+  @include cfg.transition;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+
+  &:hover {
+    opacity: 0.75;
+  }
+}
+
+.footer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.errorCard {
+  @include cfg.flexFullCenter;
+  text-align: center;
+}
+
+.errorTitle {
+  @include cfg.fontS;
+  @include cfg.flexFullCenter;
+  font-weight: 500;
+  display: flex;
+  gap: 4px;
+}
+
+.errorMessage {
+  margin-top: 8px;
+  margin-bottom: 12px;
+  @include cfg.fontXS;
+  font-weight: 500;
+  color: var(--ui-text-secondary-color);
+}
+
+.errorIcon {
+  opacity: 0.9;
+  margin-top: -2px;
+}

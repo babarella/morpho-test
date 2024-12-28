@@ -8,6 +8,7 @@ import styles from './VaultsDiscovery.module.scss'
 import { VaultsDropdown } from '../VaultsDropdown'
 import { useVaultsSearch, VaultsSearchErrorType } from '@/hooks/vaults'
 import { useClickAway } from 'react-use'
+import { findAncestorElementById } from '@/lib/utils/dom'
 
 export interface VaultsDiscoveryProps {
   className?: string
@@ -24,10 +25,12 @@ export const VaultsDiscovery: FC<VaultsDiscoveryProps> = ({ className = '', styl
   const [isFocused, setIsFocused] = useState(false)
 
   // Doing this hack because of radix auto-focus on dropdown 1st item
-  useClickAway(inputContainerRef, () => {
+  useClickAway(inputContainerRef, (e) => {
     setIsAlwaysFocused(false)
     inputRef?.current?.blur()
-    setIsFocused(false)
+    if (!findAncestorElementById(e.target as HTMLElement, 'searchDropdown')) {
+      setIsFocused(false)
+    }
   })
 
   const isDropdownOpen = (!!searchResult.length || (!!userInput.length && isFirstLoadDone)) && isFocused
@@ -84,6 +87,7 @@ export const VaultsDiscovery: FC<VaultsDiscoveryProps> = ({ className = '', styl
       </div>
       <UiFieldError visible={searchStatus === 'error'}>{error?.message}</UiFieldError>
       <VaultsDropdown
+        id="searchDropdown"
         open={isDropdownOpen}
         items={searchResult}
         firstItemRef={firstDropdownItemRef}

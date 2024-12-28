@@ -12,9 +12,11 @@ import {
 } from '@/components/ui'
 import { VaultSearchItem } from '@/lib/vaults'
 import styles from './VaultsDropdown.module.scss'
+import { useRouter } from 'next/navigation'
 
 export type VaultsDropdownProps = Pick<UiBlockProps, 'width' | 'height' | 'borderRadius'> &
   Omit<UiDropdownProps, 'triggerClassName' | 'triggerStyle' | 'children'> & {
+    id?: string
     items: VaultSearchItem[]
     firstItemRef?: any
   }
@@ -29,13 +31,16 @@ export const VaultsDropdown: FC<VaultsDropdownProps> = ({
 
   onKeyDown = () => {},
 
+  id,
   className = '',
   style = {},
   ...dropdownProps
 }) => {
+  const router = useRouter()
+
   return (
     <UiDropdown {...dropdownProps} triggerClassName={className} style={style} onKeyDown={onKeyDown}>
-      <UiScroll height={height} width={width} borderRadius={borderRadius}>
+      <UiScroll id={id} height={height} width={width} borderRadius={borderRadius}>
         <UiScroll.Viewport>
           <UiBlock px="12px" py="12px" borderRadius={borderRadius}>
             {items.length ? (
@@ -46,6 +51,7 @@ export const VaultsDropdown: FC<VaultsDropdownProps> = ({
                     key={`vault_${vaultItem.address}`}
                     textValue={vaultItem.address}
                     className={styles.dropdownItem}
+                    onSelect={() => router.push(`/${vaultItem.chainId}/${vaultItem.address}`)}
                   >
                     <div className={styles.itemPresentation}>
                       <div className={styles.icon}>
